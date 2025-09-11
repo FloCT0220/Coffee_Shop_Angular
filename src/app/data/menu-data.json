@@ -1,0 +1,158 @@
+[
+  {
+    "id": 1,
+    "name": "Espresso",
+    "category": "Coffee",
+    "description": "Rich, full-bodied coffee with a layer of crema",
+    "sizes": {
+      "tall": 2.50,
+      "grande": 3.00,
+      "venti": 3.50
+    },
+    "temperature": "Hot",
+    "image": "☕"
+  },
+  {
+    "id": 2,
+    "name": "Americano",
+    "category": "Coffee",
+    "description": "Espresso with hot water for a smooth, clean taste",
+    "sizes": {
+      "tall": 3.00,
+      "grande": 3.50,
+      "venti": 4.00
+    },
+    "temperature": "Hot",
+    "image": "☕"
+  },
+  {
+    "id": 3,
+    "name": "Latte",
+    "category": "Coffee",
+    "description": "Espresso with steamed milk and a light layer of foam",
+    "sizes": {
+      "tall": 4.00,
+      "grande": 4.50,
+      "venti": 5.00
+    },
+    "temperature": "Both",
+    "image": "☕"
+  },
+  {
+    "id": 4,
+    "name": "Cappuccino",
+    "category": "Coffee",
+    "description": "Espresso with equal parts steamed milk and foam",
+    "sizes": {
+      "tall": 4.00,
+      "grande": 4.50,
+      "venti": 5.00
+    },
+    "temperature": "Hot",
+    "image": "☕"
+  },
+  {
+    "id": 5,
+    "name": "Mocha",
+    "category": "Coffee",
+    "description": "Espresso with chocolate and steamed milk",
+    "sizes": {
+      "tall": 4.50,
+      "grande": 5.00,
+      "venti": 5.50
+    },
+    "temperature": "Both",
+    "image": "☕"
+  },
+  {
+    "id": 6,
+    "name": "Cold Brew",
+    "category": "Coffee",
+    "description": "Smooth, less acidic coffee brewed cold for 12 hours",
+    "sizes": {
+      "tall": 3.50,
+      "grande": 4.00,
+      "venti": 4.50
+    },
+    "temperature": "Cold",
+    "image": "🧊"
+  },
+  {
+    "id": 7,
+    "name": "Iced Coffee",
+    "category": "Coffee",
+    "description": "Freshly brewed coffee served over ice",
+    "sizes": {
+      "tall": 3.00,
+      "grande": 3.50,
+      "venti": 4.00
+    },
+    "temperature": "Cold",
+    "image": "🧊"
+  },
+  {
+    "id": 8,
+    "name": "Green Tea",
+    "category": "Tea",
+    "description": "Light, refreshing green tea with natural antioxidants",
+    "sizes": {
+      "tall": 2.50,
+      "grande": 3.00,
+      "venti": 3.50
+    },
+    "temperature": "Both",
+    "image": "🍵"
+  },
+  {
+    "id": 9,
+    "name": "Earl Grey",
+    "category": "Tea",
+    "description": "Classic black tea with bergamot oil",
+    "sizes": {
+      "tall": 2.50,
+      "grande": 3.00,
+      "venti": 3.50
+    },
+    "temperature": "Hot",
+    "image": "🍵"
+  },
+  {
+    "id": 10,
+    "name": "Chai Latte",
+    "category": "Tea",
+    "description": "Spiced tea with steamed milk and aromatic spices",
+    "sizes": {
+      "tall": 4.00,
+      "grande": 4.50,
+      "venti": 5.00
+    },
+    "temperature": "Both",
+    "image": "🍵"
+  },
+  {
+    "id": 11,
+    "name": "Matcha Latte",
+    "category": "Tea",
+    "description": "Creamy matcha green tea with steamed milk",
+    "sizes": {
+      "tall": 4.50,
+      "grande": 5.00,
+      "venti": 5.50
+    },
+    "temperature": "Both",
+    "image": "🍵"
+  },
+  {
+    "id": 12,
+    "name": "Iced Tea",
+    "category": "Tea",
+    "description": "Refreshing iced tea with lemon",
+    "sizes": {
+      "tall": 2.50,
+      "grande": 3.00,
+      "venti": 3.50
+    },
+    "temperature": "Cold",
+    "image": "🧊"
+  }
+]

@@ -1,0 +1,98 @@
+<div class="cart-container">
+  <div class="cart-header">
+    <h2>Shopping Cart</h2>
+    <button 
+      class="clear-cart-btn" 
+      (click)="clearCart()" 
+      [disabled]="cartItems().length === 0">
+      Clear Cart
+    </button>
+  </div>
+
+  <div class="cart-content" *ngIf="cartItems().length > 0; else emptyCart">
+    <!-- Cart Items -->
+    <div class="cart-items">
+      <div class="cart-item" *ngFor="let item of cartItems(); let i = index">
+        <div class="item-info">
+          <div class="item-image">
+            <span class="item-emoji">{{ item.drink.image }}</span>
+          </div>
+          <div class="item-details">
+            <h4 class="item-name">{{ item.drink.name }}</h4>
+            <p class="item-category">{{ item.drink.category }}</p>
+            <p class="item-size">{{ getSizeLabel(item.size) }} - ${{ item.price.toFixed(2) }}</p>
+          </div>
+        </div>
+
+        <div class="item-controls">
+          <div class="quantity-controls">
+            <button 
+              class="quantity-btn" 
+              (click)="updateQuantity(i, item.quantity - 1)"
+              [disabled]="item.quantity <= 1">
+              -
+            </button>
+            <input 
+              type="number" 
+              class="quantity-input" 
+              [value]="item.quantity" 
+              (change)="updateQuantityFromInput(i, $event)"
+              min="1"
+              max="99">
+            <button 
+              class="quantity-btn" 
+              (click)="updateQuantity(i, item.quantity + 1)">
+              +
+            </button>
+          </div>
+          
+          <div class="item-total">
+            ${{ getItemTotal(item).toFixed(2) }}
+          </div>
+          
+          <button 
+            class="remove-btn" 
+            (click)="removeItem(i)"
+            title="Remove item">
+            ×
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Summary -->
+    <div class="cart-summary">
+      <div class="summary-section">
+        <h3>Order Summary</h3>
+        
+        <div class="summary-row">
+          <span>Total Items:</span>
+          <span>{{ cartSummary().totalItems }}</span>
+        </div>
+        
+        <div class="summary-row category-total">
+          <span>Coffee Total:</span>
+          <span>${{ cartSummary().coffeeTotal.toFixed(2) }}</span>
+        </div>
+        
+        <div class="summary-row category-total">
+          <span>Tea Total:</span>
+          <span>${{ cartSummary().teaTotal.toFixed(2) }}</span>
+        </div>
+        
+        <div class="summary-row total-row">
+          <span>Grand Total:</span>
+          <span>${{ cartSummary().totalPrice.toFixed(2) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyCart>
+    <div class="empty-cart">
+      <div class="empty-cart-icon">🛒</div>
+      <h3>Your cart is empty</h3>
+      <p>Add some delicious drinks from our menu!</p>
+    </div>
+  </ng-template>
+</div>
