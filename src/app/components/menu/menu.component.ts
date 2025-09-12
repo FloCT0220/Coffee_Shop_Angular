@@ -18,6 +18,7 @@ export class MenuComponent implements OnInit {
   selectedTemperature = signal<'hot' | 'cold'>('hot');
   selectedCategory = signal<'All' | 'Coffee' | 'Tea'>('All');
   selectedDrink = signal<Drink | null>(null);
+  quantity = signal<number>(1);
 
   constructor(private cartService: CartService) {}
 
@@ -38,12 +39,8 @@ export class MenuComponent implements OnInit {
     this.selectedSize.set(size);
   }
 
-  onSizeButtonClick(size: string): void {
+  onSizeClick(size: string): void {
     this.selectedSize.set(size as 'tall' | 'grande' | 'venti');
-  }
-
-  onTemperatureClick(temperature: string): void {
-    this.selectedTemperature.set(temperature as 'hot' | 'cold');
   }
 
   onTemperatureChange(event: Event): void {
@@ -52,18 +49,47 @@ export class MenuComponent implements OnInit {
     this.selectedTemperature.set(temperature);
   }
 
+  onTemperatureClick(temperature: string): void {
+    this.selectedTemperature.set(temperature as 'hot' | 'cold');
+  }
+
   onCategoryChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
     const category = target.value as 'All' | 'Coffee' | 'Tea';
     this.selectedCategory.set(category);
   }
 
+  onCategoryClick(category: string): void {
+    this.selectedCategory.set(category as 'All' | 'Coffee' | 'Tea');
+  }
+
+  onQuantityChange(change: number): void {
+    const newQuantity = this.quantity() + change;
+    if (newQuantity >= 1) {
+      this.quantity.set(newQuantity);
+    }
+  }
+
+  onQuantityInput(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const value = parseInt(target.value);
+    if (value >= 1) {
+      this.quantity.set(value);
+    } else {
+      this.quantity.set(1);
+      target.value = '1';
+    }
+  }
+
   addToCart(drink: Drink): void {
-    this.cartService.addToCart(drink, this.selectedSize(),  this.selectedTemperature());
+    // Add the item to cart with the selected quantity
+    for (let i = 0; i < this.quantity(); i++) {
+      this.cartService.addToCart(drink, this.selectedSize(), this.selectedTemperature());
+    }
     this.toggleModal('hide');
-    
     this.selectedSize.set('tall');
     this.selectedTemperature.set('hot');
+    this.quantity.set(1);
   }
 
   getPrice(drink: Drink): number {
@@ -72,6 +98,13 @@ export class MenuComponent implements OnInit {
 
   getLabel(label: string): string {
     return label.charAt(0).toUpperCase() + label.slice(1);
+  }
+
+  getAvailableSizes(drink: Drink | null): string[] {
+    if (!drink || !drink.sizes) {
+      return [];
+    }
+    return Object.keys(drink.sizes);
   }
 
   isImagePath(value: string | null | undefined): boolean {
@@ -83,6 +116,11 @@ export class MenuComponent implements OnInit {
 
   openModal(drink: Drink): void {
     this.selectedDrink.set(drink);
+    const availableSizes = this.getAvailableSizes(drink);
+    if (availableSizes.length > 0) {
+      this.selectedSize.set(availableSizes[0] as 'tall' | 'grande' | 'venti');
+    }
+    this.quantity.set(1);
     this.toggleModal('show');
   }
 

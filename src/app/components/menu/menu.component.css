@@ -9,6 +9,64 @@
   text-align: center;
 }
 
+.category-filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.category-filter .form-label {
+  font-weight: 600;
+  color: #8B4513;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.category-filter .dropdown .btn {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: white;
+  color: #333;
+}
+
+.category-filter .dropdown .btn:hover {
+  border-color: #8B4513;
+  background-color: #f8f9fa;
+}
+
+.category-filter .dropdown .btn:focus {
+  border-color: #8B4513;
+  box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.25);
+  outline: none;
+}
+
+.category-filter .dropdown-menu {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+}
+
+.category-filter .dropdown-item {
+  padding: 0.5rem 1rem;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.category-filter .dropdown-item:hover {
+  background-color: #8B4513;
+  color: white;
+}
+
+.category-filter .dropdown-item:active {
+  background-color: #8B4513;
+  color: white;
+}
+
 .filter-group select:focus {
   outline: none;
   border-color: #8B4513;
@@ -63,10 +121,110 @@
   border-color: #8B4513;
 }
 
+/* Bootstrap Dropdown styles */
+.form-label {
+  font-weight: 600;
+  color: #8B4513;
+  margin-bottom: 0.5rem;
+}
+
+.dropdown .btn {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  text-align: left;
+  background-color: white;
+  color: #333;
+}
+
+.dropdown .btn:hover {
+  border-color: #8B4513;
+  background-color: #f8f9fa;
+}
+
+.dropdown .btn:focus {
+  border-color: #8B4513;
+  box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.25);
+  outline: none;
+}
+
+.dropdown-menu {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-width: 120px;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #8B4513;
+  color: white;
+}
+
+.dropdown-item:active {
+  background-color: #8B4513;
+  color: white;
+}
 .current-price {
   font-size: 1.5rem;
   font-weight: 700;
   color: #8B4513;
+}
+
+/* Quantity Controls */
+.quantity-section {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+}
+
+.quantity-controls {
+  gap: 0.5rem;
+}
+
+.quantity-btn {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.quantity-btn:hover:not(:disabled) {
+  border-color: #8B4513;
+  background-color: #f8f9fa;
+}
+
+.quantity-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quantity-input {
+  width: 60px;
+  height: 40px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: border-color 0.3s ease;
+}
+
+.quantity-input:focus {
+  outline: none;
+  border-color: #8B4513;
+  box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.25);
 }
 
 .add-to-cart-btn {
