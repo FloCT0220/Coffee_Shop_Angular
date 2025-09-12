@@ -70,8 +70,6 @@
 .item-info {
   display: flex;
   align-items: center;
-  gap: 15px;
-  flex: 1;
 }
 
 .item-image {
@@ -256,6 +254,24 @@
   margin: 0;
 }
 
+/* Modal specific styles */
+.modal-body {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.modal-body .cart-content {
+  gap: 20px;
+}
+
+.modal-body .cart-item {
+  padding: 15px;
+}
+
+.modal-body .cart-summary {
+  margin-top: 20px;
+}
+
 @media (max-width: 768px) {
   .cart-item {
     flex-direction: column;
@@ -279,5 +295,9 @@
   
   .clear-cart-btn {
     align-self: center;
+  }
+  
+  .modal-body .cart-item {
+    padding: 12px;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
@@ -14,6 +14,7 @@ import { CartItem, CartSummary } from '../../models/drink.model';
 export class CartComponent {
   cartItems = computed(() => this.cartService.cartItems$());
   cartSummary = computed(() => this.cartService.cartSummary$());
+  isModalOpen = signal(false);
 
   constructor(private cartService: CartService) {}
 
@@ -30,6 +31,12 @@ export class CartComponent {
     const quantity = +target.value;
     this.cartService.updateQuantity(index, quantity);
   }
+  isImagePath(value: string | null | undefined): boolean {
+    if (!value) {
+      return false;
+    }
+    return value.startsWith('/') || value.startsWith('./') || value.startsWith('http');
+  }
 
   clearCart(): void {
     this.cartService.clearCart();
@@ -41,5 +48,27 @@ export class CartComponent {
 
   getItemTotal(item: CartItem): number {
     return item.price * item.quantity;
+  }
+
+  openModal(): void {
+    this.isModalOpen.set(true);
+    const modalElement = document.getElementById('cartModal');
+    const bootstrapNs = (window as any).bootstrap;
+    if (modalElement && bootstrapNs?.Modal) {
+      const modal = new bootstrapNs.Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  closeModal(): void {
+    this.isModalOpen.set(false);
+    const modalElement = document.getElementById('cartModal');
+    const bootstrapNs = (window as any).bootstrap;
+    if (modalElement && bootstrapNs?.Modal) {
+      const modal = bootstrapNs.Modal.getInstance(modalElement);
+      if (modal) {
+        modal.hide();
+      }
+    }
   }
 }

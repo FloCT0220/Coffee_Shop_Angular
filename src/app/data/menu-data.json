@@ -9,8 +9,7 @@
       "grande": 3.00,
       "venti": 3.50
     },
-    "temperature": "Hot",
-    "image": "☕"
+    "image": "/images/Expresso.jpg"
   },
   {
     "id": 2,
@@ -22,8 +21,7 @@
       "grande": 3.50,
       "venti": 4.00
     },
-    "temperature": "Hot",
-    "image": "☕"
+    "image": ""
   },
   {
     "id": 3,
@@ -35,8 +33,7 @@
       "grande": 4.50,
       "venti": 5.00
     },
-    "temperature": "Both",
-    "image": "☕"
+    "image": ""
   },
   {
     "id": 4,
@@ -48,8 +45,7 @@
       "grande": 4.50,
       "venti": 5.00
     },
-    "temperature": "Hot",
-    "image": "☕"
+    "image": ""
   },
   {
     "id": 5,
@@ -61,8 +57,7 @@
       "grande": 5.00,
       "venti": 5.50
     },
-    "temperature": "Both",
-    "image": "☕"
+    "image": ""
   },
   {
     "id": 6,
@@ -74,8 +69,7 @@
       "grande": 4.00,
       "venti": 4.50
     },
-    "temperature": "Cold",
-    "image": "🧊"
+    "image": ""
   },
   {
     "id": 7,
@@ -87,8 +81,7 @@
       "grande": 3.50,
       "venti": 4.00
     },
-    "temperature": "Cold",
-    "image": "🧊"
+    "image": ""
   },
   {
     "id": 8,
@@ -100,8 +93,7 @@
       "grande": 3.00,
       "venti": 3.50
     },
-    "temperature": "Both",
-    "image": "🍵"
+    "image": ""
   },
   {
     "id": 9,
@@ -113,8 +105,7 @@
       "grande": 3.00,
       "venti": 3.50
     },
-    "temperature": "Hot",
-    "image": "🍵"
+    "image": ""
   },
   {
     "id": 10,
@@ -126,8 +117,7 @@
       "grande": 4.50,
       "venti": 5.00
     },
-    "temperature": "Both",
-    "image": "🍵"
+    "image": ""
   },
   {
     "id": 11,
@@ -139,8 +129,7 @@
       "grande": 5.00,
       "venti": 5.50
     },
-    "temperature": "Both",
-    "image": "🍵"
+    "image": ""
   },
   {
     "id": 12,
@@ -152,7 +141,6 @@
       "grande": 3.00,
       "venti": 3.50
     },
-    "temperature": "Cold",
-    "image": "🧊"
+    "image": ""
   }
 ]

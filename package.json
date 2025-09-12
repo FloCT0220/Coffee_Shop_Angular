@@ -1,14 +1,9 @@
 {
   "name": "coffee-shop-angular",
   "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:coffee-shop-angular": "node dist/coffee-shop-angular/server/server.mjs"
-  },
+  "scripts": [
+    "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+  ],
   "prettier": {
     "printWidth": 100,
     "singleQuote": true,
@@ -31,6 +26,8 @@
     "@angular/platform-server": "^20.3.0",
     "@angular/router": "^20.3.0",
     "@angular/ssr": "^20.3.0",
+    "@ng-bootstrap/ng-bootstrap": "^19.0.1",
+    "bootstrap": "^5.3.8",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -50,5 +47,9 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.9.2"
-  }
+  },
+  "styles": [
+    "src/styles.css",
+    "node_modules/bootstrap/dist/css/bootstrap.min.css"
+  ]
 }

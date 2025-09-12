@@ -8,13 +8,13 @@ export interface Drink {
     grande: number;
     venti: number;
   };
-  temperature: 'Hot' | 'Cold' | 'Both';
-  image?: string;
+  image?: string | null;
 }
 
 export interface CartItem {
   drink: Drink;
   size: 'tall' | 'grande' | 'venti';
+  temperature: 'hot' | 'cold';
   quantity: number;
   price: number;
 }

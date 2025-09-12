@@ -1,19 +1,23 @@
 <div class="app-container">
-  <header class="app-header">
-    <div class="header-content">
-      <h1>{{ title() }}</h1>
-      <p class="header-subtitle">Fresh coffee and tea, made just for you</p>
+  <main class="container-fluid">
+    <div class="d-flex justify-content-center">
+      <div class="main-content">
+        <app-menu></app-menu>
+        <app-cart></app-cart>
+      </div>
     </div>
-  </header>
-
-  <main class="app-main">
-    <div class="main-content">
-      <app-menu></app-menu>
-      <app-cart></app-cart>
+    
+    <!-- Mobile Cart Toggle Button (visible on screens < 1024px) -->
+    <div class="mobile-cart-toggle d-block fixed-bottom d-lg-none">
+      <button 
+        class="btn btn-primary cart-toggle-btn" 
+        (click)="openCartModal()"
+        data-bs-toggle="modal" 
+        data-bs-target="#cartModal">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" *ngIf="cartItemCount() > 0">{{ cartItemCount() }}</span>
+        Cart
+      </button>
     </div>
   </main>
-
-  <footer class="app-footer">
-    <p>&copy; 2024 Coffee Shop. All rights reserved.</p>
-  </footer>
 </div>

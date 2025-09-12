@@ -15,8 +15,9 @@ import menuData from '../../data/menu-data.json';
 export class MenuComponent implements OnInit {
   drinks = signal<Drink[]>([]);
   selectedSize = signal<'tall' | 'grande' | 'venti'>('tall');
-  selectedTemperature = signal<'All' | 'Hot' | 'Cold'>('All');
+  selectedTemperature = signal<'hot' | 'cold'>('hot');
   selectedCategory = signal<'All' | 'Coffee' | 'Tea'>('All');
+  selectedDrink = signal<Drink | null>(null);
 
   constructor(private cartService: CartService) {}
 
@@ -27,10 +28,7 @@ export class MenuComponent implements OnInit {
   get filteredDrinks(): Drink[] {
     return this.drinks().filter(drink => {
       const categoryMatch = this.selectedCategory() === 'All' || drink.category === this.selectedCategory();
-      const temperatureMatch = this.selectedTemperature() === 'All' || 
-                             drink.temperature === this.selectedTemperature() || 
-                             drink.temperature === 'Both';
-      return categoryMatch && temperatureMatch;
+      return categoryMatch;
     });
   }
 
@@ -44,9 +42,13 @@ export class MenuComponent implements OnInit {
     this.selectedSize.set(size as 'tall' | 'grande' | 'venti');
   }
 
+  onTemperatureClick(temperature: string): void {
+    this.selectedTemperature.set(temperature as 'hot' | 'cold');
+  }
+
   onTemperatureChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
-    const temperature = target.value as 'All' | 'Hot' | 'Cold';
+    const temperature = target.value as 'hot' | 'cold';
     this.selectedTemperature.set(temperature);
   }
 
@@ -57,14 +59,46 @@ export class MenuComponent implements OnInit {
   }
 
   addToCart(drink: Drink): void {
-    this.cartService.addToCart(drink, this.selectedSize());
+    this.cartService.addToCart(drink, this.selectedSize(),  this.selectedTemperature());
+    this.toggleModal('hide');
+    
+    this.selectedSize.set('tall');
+    this.selectedTemperature.set('hot');
   }
 
   getPrice(drink: Drink): number {
     return drink.sizes[this.selectedSize()];
   }
 
-  getSizeLabel(size: string): string {
-    return size.charAt(0).toUpperCase() + size.slice(1);
+  getLabel(label: string): string {
+    return label.charAt(0).toUpperCase() + label.slice(1);
+  }
+
+  isImagePath(value: string | null | undefined): boolean {
+    if (!value) {
+      return false;
+    }
+    return value.startsWith('/') || value.startsWith('./') || value.startsWith('http');
+  }
+
+  openModal(drink: Drink): void {
+    this.selectedDrink.set(drink);
+    this.toggleModal('show');
+  }
+
+  private toggleModal(action: 'show' | 'hide'): void {
+    const modalElement = document.getElementById('drinkDetailsModal');
+    const bootstrapNs = (window as any).bootstrap;
+    if (modalElement && bootstrapNs?.Modal) {
+      if (action === 'show') {
+        const modal = new bootstrapNs.Modal(modalElement);
+        modal.show();
+      } else {
+        const modal = bootstrapNs.Modal.getInstance(modalElement);
+        if (modal) {
+          modal.hide();
+        }
+      }
+    }
   }
 }

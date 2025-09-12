@@ -1,76 +1,66 @@
-<div class="menu-container">
+<div class="container">
   <div class="menu-header">
     <h2>Our Menu</h2>
-    
-    <!-- Filters -->
-    <div class="filters">
-      <div class="filter-group">
-        <label for="category">Category:</label>
-        <select id="category" [(ngModel)]="selectedCategory" (change)="onCategoryChange($event)">
-          <option value="All">All</option>
-          <option value="Coffee">Coffee</option>
-          <option value="Tea">Tea</option>
-        </select>
-      </div>
 
-      <div class="filter-group">
-        <label for="temperature">Temperature:</label>
-        <select id="temperature" [(ngModel)]="selectedTemperature" (change)="onTemperatureChange($event)">
-          <option value="All">All</option>
-          <option value="Hot">Hot</option>
-          <option value="Cold">Cold</option>
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <label for="size">Size:</label>
-        <select id="size" [(ngModel)]="selectedSize" (change)="onSizeChange($event)">
-          <option value="tall">Tall</option>
-          <option value="grande">Grande</option>
-          <option value="venti">Venti</option>
-        </select>
-      </div>
-    </div>
   </div>
 
   <!-- Menu Items -->
-  <div class="menu-grid">
-    <div class="menu-item" *ngFor="let drink of filteredDrinks">
-      <div class="drink-card">
-        <div class="drink-image">
-          <span class="drink-emoji">{{ drink.image }}</span>
-        </div>
-        
-        <div class="drink-info">
-          <h3 class="drink-name">{{ drink.name }}</h3>
-          <p class="drink-description">{{ drink.description }}</p>
-          <div class="drink-details">
-            <span class="drink-category">{{ drink.category }}</span>
-            <span class="drink-temperature">{{ drink.temperature }}</span>
+  <div class="d-flex flex-wrap gap-3 justify-content-center">
+    <div class="card-group justify-content-center">
+      <div class="" *ngFor="let drink of filteredDrinks">
+        <div class="card menu-grid" style="width: 13rem;">
+          <img [src]="isImagePath(drink.image) ? drink.image : '/images/noImage.jpg'" class="card-img-top" [alt]="drink.name">
+          <div class="card-body">
+            <h5 class="card-title">{{ drink.name }}</h5>
+            <p class="card-text">{{ drink.description }}</p>
+            <button class="btn btn-primary" (click)="openModal(drink)">Buy</button>
           </div>
         </div>
-
-        <div class="drink-pricing">
-          <div class="size-options">
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="drinkDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <ng-container *ngIf="selectedDrink() as drink">
+            <img [src]="isImagePath(drink.image) ? drink.image : '/images/noImage.jpg'" class="card-img-top" [alt]="drink.name">
+          </ng-container>
+        </div>
+        <div class="modal-body">
+          <ng-container *ngIf="selectedDrink() as drink">
+            <h5 class="drink-name">{{ drink.name }}</h5>
+            <p class="drink-description">{{ drink.description }}</p>
+          </ng-container>
+          <div class="temperature-options">
+            <button 
+              *ngFor="let temperature of ['hot', 'cold']"
+              [class]="'mx-1 btn size-btn ' + (selectedTemperature() === temperature ? 'active' : '')"
+              (click)="onTemperatureClick(temperature)">
+              {{ getLabel(temperature) }}
+            </button>
+          </div>
+          <div class="size-options my-2">
             <button 
               *ngFor="let size of ['tall', 'grande', 'venti']" 
               [class]="'size-btn ' + (selectedSize() === size ? 'active' : '')"
               (click)="onSizeButtonClick(size)">
-              {{ getSizeLabel(size) }}
+              {{ getLabel(size) }}
             </button>
           </div>
-          
-          <div class="price-section">
+        </div>
+        <div class="modal-footer">
+          <ng-container *ngIf="selectedDrink() as drink">
             <span class="current-price">${{ getPrice(drink).toFixed(2) }}</span>
-            <button class="add-to-cart-btn" (click)="addToCart(drink)">
-              Add to Cart
-            </button>
-          </div>
+          </ng-container>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" *ngIf="selectedDrink() as drink" (click)="addToCart(drink)">Add to Cart</button>
         </div>
       </div>
     </div>
   </div>
-
   <div class="no-items" *ngIf="filteredDrinks.length === 0">
     <p>No drinks found matching your criteria.</p>
   </div>
