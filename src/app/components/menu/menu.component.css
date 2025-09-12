@@ -16,8 +16,6 @@
 
 .menu-grid {
   display: grid;
-  /* grid-template-columns: repeat(auto-fill, minmax(3fr, 1fr)); */
-  /* gap: 20px; */
   margin-bottom: 30px;
   min-height: 23rem;
 }

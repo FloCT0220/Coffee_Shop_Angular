@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MenuComponent } from './components/menu/menu.component';
@@ -12,7 +12,6 @@ import { CartService } from './services/cart.service';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('Coffee Shop Menu');
   cartItemCount = computed(() => this.cartService.cartSummary$().totalItems);
 
   constructor(private modalService: NgbModal, private cartService: CartService) {}

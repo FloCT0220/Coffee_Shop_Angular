@@ -66,7 +66,7 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
+@media (max-width: 992px) {
   .main-content {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -74,33 +74,8 @@ body {
 }
 
 @media (max-width: 768px) {
-  .app-header h1 {
-    font-size: 2.5rem;
-  }
-  
-  .header-subtitle {
-    font-size: 1rem;
-  }
-  
-  .app-main {
-    padding: 1rem 0;
-  }
-  
+ 
   .main-content {
     padding: 0 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .app-header {
-    padding: 1.5rem 0;
-  }
-  
-  .app-header h1 {
-    font-size: 2rem;
-  }
-  
-  .header-subtitle {
-    font-size: 0.9rem;
   }
 }
