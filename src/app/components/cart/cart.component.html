@@ -10,56 +10,63 @@
     </button>
   </div>
   <div class="cart-content" *ngIf="cartItems().length > 0; else emptyCart">
-    <!-- Cart Items -->
-    <div class="cart-items">
-      <div class="cart-item" *ngFor="let item of cartItems(); let i = index">
-        <div class="item-info">
-          <div class="item-image">
-            <img [src]="isImagePath(item.drink.image) ? item.drink.image : '/images/noImage.jpg'" class="card-img-top" [alt]="item.drink.name">
-          </div>
-        </div>
-        <div>
-          <div class="item-details">
-            <h4 class="item-name">{{ item.temperature }} {{ item.drink.name }}</h4>
-          </div>
-          <div>
-            <p class="item-size">{{ getSizeLabel(item.size) }} - ${{ item.price.toFixed(2) }}</p>
-          </div>
-          <div class="item-controls">
-            <div class="quantity-controls">
-              <button 
-                class="quantity-btn" 
-                (click)="updateQuantity(i, item.quantity - 1)"
-                [disabled]="item.quantity <= 1">
-                -
-              </button>
-              <input 
-                type="number" 
-                class="quantity-input" 
-                [value]="item.quantity" 
-                (change)="updateQuantityFromInput(i, $event)"
-                min="1"
-                max="99">
-              <button 
-                class="quantity-btn" 
-                (click)="updateQuantity(i, item.quantity + 1)">
-                +
-              </button>
-            </div>
-            
-
-          </div>
-        </div>
-        <div class="item-total">
-          ${{ getItemTotal(item).toFixed(2) }}
+    <!-- Cart Items Grouped by Category -->
+    <div class="cart-categories">
+      <div *ngFor="let category of categoryKeys" class="category-section mb-4">
+        <div class="category-header">
+          <h4 class="category-title">{{ category }}</h4>
+          <span class="category-total">${{ getCategoryTotal(category).toFixed(2) }}</span>
         </div>
         
-        <button 
-          class="remove-btn" 
-          (click)="removeItem(i)"
-          title="Remove item">
-          ×
-        </button>
+        <div class="cart-items">
+          <div class="cart-item" *ngFor="let item of groupedCartItems[category]; let i = index">
+            <div class="item-info">
+              <div class="item-image">
+                <img [src]="isImagePath(item.drink.image) ? item.drink.image : '/images/noImage.jpg'" class="card-img-top" [alt]="item.drink.name">
+              </div>
+            </div>
+            <div>
+              <div class="item-details">
+                <h4 class="item-name">{{ item.temperature }} {{ item.drink.name }}</h4>
+              </div>
+              <div>
+                <p class="item-size">{{ getSizeLabel(item.size) }} - ${{ item.price.toFixed(2) }}</p>
+              </div>
+              <div class="item-controls">
+                <div class="quantity-controls">
+                  <button 
+                    class="quantity-btn" 
+                    (click)="updateQuantity(cartItems().indexOf(item), item.quantity - 1)"
+                    [disabled]="item.quantity <= 1">
+                    -
+                  </button>
+                  <input 
+                    type="number" 
+                    class="quantity-input" 
+                    [value]="item.quantity" 
+                    (change)="updateQuantityFromInput(cartItems().indexOf(item), $event)"
+                    min="1"
+                    max="99">
+                  <button 
+                    class="quantity-btn" 
+                    (click)="updateQuantity(cartItems().indexOf(item), item.quantity + 1)">
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="item-total">
+              ${{ getItemTotal(item).toFixed(2) }}
+            </div>
+            
+            <button 
+              class="remove-btn" 
+              (click)="removeItem(cartItems().indexOf(item))"
+              title="Remove item">
+              ×
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -100,64 +107,85 @@
   </ng-template>
 </div>
 
+<!-- Mobile Cart Toggle Button (visible on screens < 1024px) -->
+<div class="mobile-cart-toggle d-flex justify-content-end fixed-bottom d-lg-none">
+  <button 
+    class="btn btn-primary cart-toggle-btn" 
+    (click)="toggleModal('show')"
+    data-bs-toggle="modal" 
+    data-bs-target="#cartModal">
+    <span class="cart-count" *ngIf="cartItemCount() > 0">{{ cartItemCount() }}</span>
+    Cart
+  </button>
+</div>
+
 <!-- Mobile Cart Modal (visible on screens < 1024px) -->
 <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="cartModalLabel">Shopping Cart</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" (click)="toggleModal('hide')" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="cart-content" *ngIf="cartItems().length > 0; else emptyCartModal">
-          <!-- Cart Items -->
-          <div class="cart-items">
-            <div class="cart-item" *ngFor="let item of cartItems(); let i = index">
-              <div class="item-info">
-                <div class="item-image">
-                  <img [src]="isImagePath(item.drink.image) ? item.drink.image : '/images/noImage.jpg'" class="card-img-top" [alt]="item.drink.name">
-                </div>
-              </div>
-              <div>
-                <div class="item-details">
-                  <h4 class="item-name">{{ item.temperature }} {{ item.drink.name }}</h4>
-                </div>
-                <div>
-                  <p class="item-size">{{ getSizeLabel(item.size) }} - ${{ item.price.toFixed(2) }}</p>
-                </div>
-                <div class="item-controls">
-                  <div class="quantity-controls">
-                    <button 
-                      class="quantity-btn" 
-                      (click)="updateQuantity(i, item.quantity - 1)"
-                      [disabled]="item.quantity <= 1">
-                      -
-                    </button>
-                    <input 
-                      type="number" 
-                      class="quantity-input" 
-                      [value]="item.quantity" 
-                      (change)="updateQuantityFromInput(i, $event)"
-                      min="1"
-                      max="99">
-                    <button 
-                      class="quantity-btn" 
-                      (click)="updateQuantity(i, item.quantity + 1)">
-                      +
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="item-total">
-                ${{ getItemTotal(item).toFixed(2) }}
+          <!-- Cart Items Grouped by Category -->
+          <div class="cart-categories">
+            <div *ngFor="let category of categoryKeys" class="category-section mb-3">
+              <div class="category-header">
+                <h6 class="category-title">{{ category }}</h6>
+                <span class="category-total">${{ getCategoryTotal(category).toFixed(2) }}</span>
               </div>
               
-              <button 
-                class="remove-btn" 
-                (click)="removeItem(i)"
-                title="Remove item">
-                ×
-              </button>
+              <div class="cart-items">
+                <div class="cart-item" *ngFor="let item of groupedCartItems[category]; let i = index">
+                  <div class="item-info">
+                    <div class="item-image">
+                      <img [src]="isImagePath(item.drink.image) ? item.drink.image : '/images/noImage.jpg'" class="card-img-top" [alt]="item.drink.name">
+                    </div>
+                  </div>
+                  <div>
+                    <div class="item-details">
+                      <h4 class="item-name">{{ item.temperature }} {{ item.drink.name }}</h4>
+                    </div>
+                    <div>
+                      <p class="item-size">{{ getSizeLabel(item.size) }} - ${{ item.price.toFixed(2) }}</p>
+                    </div>
+                    <div class="item-controls">
+                      <div class="quantity-controls">
+                        <button 
+                          class="quantity-btn" 
+                          (click)="updateQuantity(cartItems().indexOf(item), item.quantity - 1)"
+                          [disabled]="item.quantity <= 1">
+                          -
+                        </button>
+                        <input 
+                          type="number" 
+                          class="quantity-input" 
+                          [value]="item.quantity" 
+                          (change)="updateQuantityFromInput(cartItems().indexOf(item), $event)"
+                          min="1"
+                          max="99">
+                        <button 
+                          class="quantity-btn" 
+                          (click)="updateQuantity(cartItems().indexOf(item), item.quantity + 1)">
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item-total">
+                    ${{ getItemTotal(item).toFixed(2) }}
+                  </div>
+                  
+                  <button 
+                    class="remove-btn" 
+                    (click)="removeItem(cartItems().indexOf(item))"
+                    title="Remove item">
+                    ×
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -205,7 +233,14 @@
           [disabled]="cartItems().length === 0">
           Clear Cart
         </button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button 
+          type="button" 
+          (click)="toggleModal('hide')"
+          class="btn btn-success" 
+          data-bs-dismiss="modal"
+          *ngIf="cartItems().length > 0">
+          Order
+        </button>
       </div>
     </div>
   </div>

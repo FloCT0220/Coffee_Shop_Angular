@@ -38,33 +38,6 @@ body {
   display: none;
 }
 
-.cart-toggle-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  border-radius: 25px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-weight: 600;
-  position: relative;
-}
-
-.cart-count {
-  background-color: #dc3545;
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  font-weight: 700;
-  position: absolute;
-  top: -5px;
-  right: -5px;
-}
-
 /* Responsive Design */
 @media (max-width: 992px) {
   .main-content {

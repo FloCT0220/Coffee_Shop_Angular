@@ -14,6 +14,7 @@ import { CartItem, CartSummary } from '../../models/drink.model';
 export class CartComponent {
   cartItems = computed(() => this.cartService.cartItems$());
   cartSummary = computed(() => this.cartService.cartSummary$());
+  cartItemCount = computed(() => this.cartService.cartSummary$().totalItems);
   isModalOpen = signal(false);
 
   constructor(private cartService: CartService) {}
@@ -50,24 +51,54 @@ export class CartComponent {
     return item.price * item.quantity;
   }
 
-  openModal(): void {
-    this.isModalOpen.set(true);
-    const modalElement = document.getElementById('cartModal');
-    const bootstrapNs = (window as any).bootstrap;
-    if (modalElement && bootstrapNs?.Modal) {
-      const modal = new bootstrapNs.Modal(modalElement);
-      modal.show();
-    }
+  get groupedCartItems(): { [key: string]: CartItem[] } {
+    const grouped: { [key: string]: CartItem[] } = {};
+    
+    this.cartItems().forEach(item => {
+      if (!grouped[item.drink.category]) {
+        grouped[item.drink.category] = [];
+      }
+      grouped[item.drink.category].push(item);
+    });
+    
+    return grouped;
   }
 
-  closeModal(): void {
-    this.isModalOpen.set(false);
+  get categoryKeys(): string[] {
+    return Object.keys(this.groupedCartItems);
+  }
+
+  getCategoryTotal(category: string): number {
+    return this.groupedCartItems[category].reduce((total, item) => total + this.getItemTotal(item), 0);
+  }
+
+  toggleModal(action: 'show' | 'hide'): void {
     const modalElement = document.getElementById('cartModal');
     const bootstrapNs = (window as any).bootstrap;
     if (modalElement && bootstrapNs?.Modal) {
-      const modal = bootstrapNs.Modal.getInstance(modalElement);
-      if (modal) {
-        modal.hide();
+      if (action === 'show') {
+        this.isModalOpen.set(true);
+        const modal = new bootstrapNs.Modal(modalElement);
+        modal.show();
+      } else {
+        this.isModalOpen.set(false);
+        const modal = bootstrapNs.Modal.getInstance(modalElement);
+        if (modal) {  
+          modal.hide();
+        }
+
+          const backdrops = document.getElementsByClassName('modal-backdrop');
+
+        Array.from(backdrops).forEach((backdrop: Element) => {
+          // Trigger fade out by removing the 'show' class
+          backdrop.classList.remove('show');
+
+          // Wait for CSS transition to finish before removing the element
+          // Assuming Bootstrap's default transition of 150ms
+          setTimeout(() => {
+            backdrop.remove();
+          }, 150);
+        });
       }
     }
   }
