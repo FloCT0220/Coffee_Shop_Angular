@@ -19,8 +19,8 @@ The size option is completed based on the json file as well as 1 of the collumn 
 Add another section for condiments in the model as a drop down box. In the cart, it will also display the condiments and the price to the side of the condiments
 
 # ScreenShots
-![Main](image.png)
-![Drink-Details](image-1.png)
+![Main](image.png)  
+![Drink-Details](image-1.png)  
 ![Hot&Cold](image-2.png)
-![Size](image-3.png)
+![Size](image-3.png)  
 ![ShoppingCart](image-4.png)
