@@ -1,9 +1,50 @@
-# Coffee Menu
-## To start a local development server, run:
+# Coffee Shop Angular
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
+
+### Install Angular CLI
 
 ```bash
-ng serve
+npm install -g @angular/cli
 ```
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/your-username/Coffee_Shop_Angular.git
+cd Coffee_Shop_Angular
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Install Bootstrap
+
+```bash
+npm install bootstrap
+```
+
+### Install ng-bootstrap (Bootstrap for Angular)
+
+```bash
+npm install @ng-bootstrap/ng-bootstrap
+```
+
+### Start the Development Server
+
+```bash
+ng serve -o
+```
+
+---
 
 # Questions
  
